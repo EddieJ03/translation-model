@@ -43,7 +43,7 @@ local_spm_src_path_path = mlflow.artifacts.download_artifacts(spm_src_path)
 sp = joblib.load(local_spm_src_path_path)  
 
 model_uri = f"runs:/{os.environ['MLFLOW_RUN_ID']}/models"
-model = mlflow.pytorch.load_model(model_uri)
+model = mlflow.pytorch.load_model(model_uri, map_location="cpu")
 
 model.eval()
 

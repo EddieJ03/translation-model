@@ -126,9 +126,6 @@ def train(train_batch_size=32, clip_grad=5.0, log_every=10, dropout=0.3, device=
 
                     train_time = time.time()
                     report_loss = report_tgt_words = report_examples = 0.
-                    
-                    if train_iter == 4000:
-                        break
 
         mlflow.pytorch.log_model(model, "models")
         spm_src_path = "spm_src.pkl"
@@ -138,7 +135,7 @@ def train(train_batch_size=32, clip_grad=5.0, log_every=10, dropout=0.3, device=
         mlflow.log_artifact(spm_src_path)
 
 def main():
-    train(max_epoch=1)
+    train(max_epoch=30)
 
 if __name__ == '__main__':
     main()
