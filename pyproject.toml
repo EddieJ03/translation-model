@@ -17,19 +17,25 @@ scipy = "1.14.1"
 tqdm = "4.67.1"
 docopt = "0.6.2"
 nltk = "3.9.1"
-torchvision = {version = "0.20.1", source = "pytorch-cpu-src"}
-torch = {version = "2.5.1", source = "pytorch-cpu-src"}
 sentencepiece = "0.2.0"
 lxml = "5.0.0"
+torchvision = { version = "0.20.1", source = "pytorch-cpu" }
+torch = { version = "2.5.1", source = "pytorch-cpu" }
+
+# https://github.com/pytorch/pytorch/blob/main/RELEASE.md#release-compatibility-matrix
+[[tool.poetry.source]]
+name     = "pytorch-cuda"
+url      = "https://download.pytorch.org/whl/cu121"
+priority = "explicit"
+
+[[tool.poetry.source]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
 
 [tool.poetry.scripts]
 train = "my-modelaugbbqezdqix.training.train:main"
 serve = "my-modelaugbbqezdqix.serving.serve:main"
-
-[[tool.poetry.source]]
-name = "pytorch-cpu-src"
-url = "https://download.pytorch.org/whl/cpu"
-priority = "explicit"
 
 [build-system]
 requires = ["poetry-core"]
