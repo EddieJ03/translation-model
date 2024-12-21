@@ -1,0 +1,8 @@
+config:
+  my-modelaugbbqezdqix-infra:azureStorageConnectionString:
+    secure: AAABAOJrMeXAZ/Wp1x6EuWMu3fH7mfhYtO8YErVcJUWlsyxihpc0pZaNSOx+n1Feb0XTnBzIt5mXBH+gDdYW6SIYpSmhhB45fmdjml1ffTv5yQwo1B8Ym33lOzKfgv57Ntu9U7ykCHzD3Nd03ac/NRANNG5ztE1M1MUpeCQYid9jdSwUbihjeFSNMP79JzLK7uYe6b7ThbGnGNOoArf4GJU6nAsZFRuW3Nivji2GjNRm0U8YHoE+AjfblCUaqcXy+orV+l+3oQveoyEwK9mzW90DGvgYPHORiOWGjwA=
+  my-modelaugbbqezdqix-infra:dockerUsername: edwj03
+  my-modelaugbbqezdqix-infra:port: "8000"
+  my-modelaugbbqezdqix-infra:mlflowURI: http://minimlplatform.duckdns.org/mlflow/
+  my-modelaugbbqezdqix-infra:runID: 0d366d0b654a43e4a1869cc6b40911e2
+  my-modelaugbbqezdqix-infra:baseStackName: EddieJ03/ml-infra/dev

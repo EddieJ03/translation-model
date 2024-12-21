@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "my-modelaugbbqezdqix"
+version = "0.1.0"
+description = "My Model contains all the boilerplate you need to train and deploy a model."
+authors = ["Edward Jin <ejscfj@gmail.com>"]
+packages = [{include = "my-modelaugbbqezdqix"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+mlflow = "^2.18.0"
+fastapi = "^0.115.5"
+uvicorn = "^0.32.1"
+azure-storage-blob = "^12.24.0"
+azure-identity = "^1.19.0"
+numpy = "2.0.2"
+scipy = "1.14.1"
+tqdm = "4.67.1"
+docopt = "0.6.2"
+nltk = "3.9.1"
+torchvision = {version = "0.20.1", source = "pytorch-cpu-src"}
+torch = {version = "2.5.1", source = "pytorch-cpu-src"}
+sentencepiece = "0.2.0"
+lxml = "5.0.0"
+
+[tool.poetry.scripts]
+train = "my-modelaugbbqezdqix.training.train:main"
+serve = "my-modelaugbbqezdqix.serving.serve:main"
+
+[[tool.poetry.source]]
+name = "pytorch-cpu-src"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
