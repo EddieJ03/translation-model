@@ -11,7 +11,8 @@
 ## Training Model
 1. Set `MLFLOW_TRACKING_URI` and `AZURE_STORAGE_CONNECTION_STRING` environment variables with the corresponding values through terminal
     - Do not set these values with double quotes surrounding!
-2. Run `poetry run train`
+2. If training on GPU, make sure to change the torch and torchvision source in `pyproject.toml` to the cuda source then run `poetry lock` then `poetry install`. 
+2. Run `poetry run train` 
 
 ## Serving Model
 1. Set `MLFLOW_RUN_ID`, `AZURE_STORAGE_CONNECTION_STRING`, and `MLFLOW_TRACKING_URI` through terminal then run `poetry run serve`
