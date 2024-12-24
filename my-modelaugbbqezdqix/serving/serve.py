@@ -35,12 +35,8 @@ app = FastAPI()
 # Get the current working directory
 current_dir = os.getcwd()
 
-# Move two directories up
-spm_src_path = f"runs:/{os.environ['MLFLOW_RUN_ID']}/spm_src.pkl"  # Adjust path to where you stored it
-
-local_spm_src_path_path = mlflow.artifacts.download_artifacts(spm_src_path)
-
-sp = joblib.load(local_spm_src_path_path)  
+sp = spm.SentencePieceProcessor()
+sp.load(os.path.join(current_dir,'{}.model'.format('src')))
 
 model_uri = f"runs:/{os.environ['MLFLOW_RUN_ID']}/models"
 model = mlflow.pytorch.load_model(model_uri, map_location="cpu")
@@ -49,7 +45,6 @@ model.eval()
 
 class PredictRequest(BaseModel):
     input_txt: str
-    decoding_step: int
     beam_size: int
     
 def beam_search(model: NMT, src_sent: List[str], beam_size: int, max_decoding_time_step: int) -> List[Hypothesis]:
@@ -76,9 +71,11 @@ def predict(request: PredictRequest, response_model=List[Hypothesis]):
     
     subword_tokens = sp.encode_as_pieces(input_txt)
     
+    print(len(subword_tokens))
+    
     hypotheses = beam_search(model, subword_tokens,
                              beam_size=request.beam_size,
-                             max_decoding_time_step=request.decoding_step)
+                             max_decoding_time_step=len(subword_tokens))
     
     return hypotheses
     
