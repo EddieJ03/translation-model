@@ -14,12 +14,14 @@ const provider = new k8s.Provider("k8s-provider", {
 });
 
 const dockerImage = new docker.Image("my-modelaugbbqezdqix-image", {
-    imageName: `docker.io/${config.require("dockerUsername")}/my-modelaugbbqezdqix-image:latest`, // Use your Docker Hub username and desired image name
-    build: {
-      context: "../", // Path to your Dockerfile
-      platform: "linux/amd64", // Target platform (optional)
-    },
-  });
+  imageName: `docker.io/${config.require(
+    "dockerUsername"
+  )}/my-modelaugbbqezdqix-image:latest`, // Use your Docker Hub username and desired image name
+  build: {
+    context: "../", // Path to your Dockerfile
+    platform: "linux/amd64", // Target platform (optional)
+  },
+});
 
 // Kubernetes Deployment
 const appName = "my-modelaugbbqezdqix";
@@ -32,13 +34,23 @@ const deployment = new k8s.apps.v1.Deployment(
       replicas: 1,
       selector: { matchLabels: appLabels },
       template: {
-        metadata: { labels: appLabels },
+        metadata: { 
+          labels: appLabels,
+          annotations: {
+            "kubectl.kubernetes.io/restartedAt": new Date().toISOString(), // Dynamically set timestamp
+          }, 
+        },
         spec: {
           containers: [
             {
               name: appName,
               image: dockerImage.imageName,
-              ports: [{ name: "http", containerPort: parseInt(config.require("port")) }],
+              ports: [
+                {
+                  name: "http",
+                  containerPort: parseInt(config.require("port")),
+                },
+              ],
               env: [
                 { name: "LISTEN_PORT", value: config.require("port") },
                 {
@@ -88,14 +100,18 @@ const hpa = new k8s.autoscaling.v2.HorizontalPodAutoscaler(
   { provider }
 );
 
-const service = new k8s.core.v1.Service(`${appName}-service`, {
+const service = new k8s.core.v1.Service(
+  `${appName}-service`,
+  {
     metadata: { labels: appLabels },
     spec: {
-        type: "ClusterIP",
-        ports: [{ port: parseInt(config.require("port")), targetPort: "http" }],
-        selector: appLabels,
+      type: "ClusterIP",
+      ports: [{ port: parseInt(config.require("port")), targetPort: "http" }],
+      selector: appLabels,
     },
-}, { provider: provider });
+  },
+  { provider: provider }
+);
 
 new TraefikRoute(
   "my-modelaugbbqezdqix",

@@ -4,5 +4,5 @@ config:
   my-modelaugbbqezdqix-infra:dockerUsername: edwj03
   my-modelaugbbqezdqix-infra:port: "8000"
   my-modelaugbbqezdqix-infra:mlflowURI: http://minimlplatform.duckdns.org/mlflow/
-  my-modelaugbbqezdqix-infra:runID: 0d366d0b654a43e4a1869cc6b40911e2
+  my-modelaugbbqezdqix-infra:runID: 9db870c5b660446887ea06d635e29aaa
   my-modelaugbbqezdqix-infra:baseStackName: EddieJ03/ml-infra/dev
