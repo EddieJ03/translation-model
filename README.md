@@ -1,3 +1,44 @@
+## Inference Example:
+
+Send a POST request to this endpoint: `http://minimlplatform.duckdns.org/models/my-modelaugbbqezdqix/predict`
+- **If the link does not work, it is probably because I paused my Kubernetes cluster so I don't go broke**
+
+Example JSON Input:
+```
+{
+    "input_txt": "南海",
+    "beam_size": 5
+}
+```
+
+Example JSON Output:
+```
+[
+    [
+        [
+            "tropicals",
+            -3.2499091625213623
+        ],
+        [
+            "southern in",
+            -3.3114092350006104
+        ],
+        [
+            "souths",
+            -3.5783510208129883
+        ],
+        [
+            "chinas",
+            -4.354121208190918
+        ],
+        [
+            "seas",
+            -4.451818943023682
+        ]
+    ]
+]
+```
+
 ## Setup
 1. Install Poetry https://python-poetry.org/docs/#installation
 2. Run `poetry install`
